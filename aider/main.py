@@ -21,6 +21,7 @@ from prompt_toolkit.enums import EditingMode
 from aider import __version__, models, urls, utils
 from aider.analytics import Analytics
 from aider.args import get_parser
+from aider.bash_completion import generate_bash_completion
 from aider.coders import Coder
 from aider.coders.base_coder import UnknownEditFormat
 from aider.commands import Commands, SwitchCoder
@@ -484,6 +485,10 @@ def main(argv=None, input=None, output=None, force_git_root=None, return_coder=F
             if check_config_files_for_yes(default_config_files):
                 return 1
         raise e
+
+    if args.generate_bash_completion:
+        generate_bash_completion(parser)
+        return
 
     if args.verbose:
         print("Config files search order, if no --config:")
